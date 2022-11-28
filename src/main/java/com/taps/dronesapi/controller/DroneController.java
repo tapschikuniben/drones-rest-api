@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.taps.dronesapi.model.Drone;
-import com.taps.dronesapi.repository.DroneRepository;;
+import com.taps.dronesapi.repository.DroneRepository;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
