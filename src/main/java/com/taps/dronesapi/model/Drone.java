@@ -24,18 +24,22 @@ public class Drone {
 
     @Column(name = "state")
     private String state;
+    
+    @Column(name = "current_load_id")
+    private long currentLoadID;
 
     public Drone() {
 
     }
 
     // initialize the variables
-    public Drone(String serialNumber, String model, double weightLimit, int batteryCapacity, String state) {
+    public Drone(String serialNumber, String model, double weightLimit, int batteryCapacity, String state,long currentLoadID) {
         this.serialNumber = serialNumber;
         this.model = model;
         this.weightLimit = weightLimit;
         this.batteryCapacity = batteryCapacity;
         this.state = state;
+        this.currentLoadID = currentLoadID;
     }
 
     // id
@@ -71,7 +75,7 @@ public class Drone {
     }
 
     // batteryCapacity
-    public int geBatteryCapacity() {
+    public int getBatteryCapacity() {
         return batteryCapacity;
     }
 
@@ -87,11 +91,20 @@ public class Drone {
     public void setState(String state) {
         this.state = state;
     }
+    
+    // load ID
+    public long getCurrentLoadID() {
+        return currentLoadID;
+    }
+
+    public void setCurrentLoadID(long currentLoadID) {
+        this.currentLoadID = currentLoadID;
+    }
 
     @Override
     public String toString() {
         return "Drone [id=" + id + ", serial_number=" + serialNumber + ", model=" + model + ", weight_limit="
                 + weightLimit + ", battery_capacity=" + batteryCapacity + ", state="
-                + state + "]";
+                + state + ", current_load_id=" + currentLoadID + "]";
     }
 }

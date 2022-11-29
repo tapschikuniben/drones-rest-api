@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.taps.dronesapi.model.LoadDrone;
+import com.taps.dronesapi.repository.DroneRepository;
 import com.taps.dronesapi.repository.LoadDroneRepository;
 
 
@@ -29,6 +31,9 @@ public class LoadDroneController {
 	
 	@Autowired
     LoadDroneRepository loadDroneRepository;
+	
+	@Autowired
+    DroneRepository droneRepository;
 	
 	
    @GetMapping("/load_drone")
@@ -56,6 +61,13 @@ public class LoadDroneController {
         try {
             LoadDrone _loadDrone = loadDroneRepository.save(new LoadDrone(loadDrone.getDroneSerialNumber(), loadDrone.getMedicationCode(),
                     loadDrone.getSource(), loadDrone.getDestination()));
+            
+            // Update drone status to loaded
+        	droneRepository.setUpdateState("LOADED", loadDrone.getDroneSerialNumber());
+        	
+            //Update drone current load id
+        	droneRepository.setCurrentLoadID(_loadDrone.getId(), loadDrone.getDroneSerialNumber());
+            
             return new ResponseEntity<>(_loadDrone, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
