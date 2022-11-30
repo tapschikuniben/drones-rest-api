@@ -64,6 +64,12 @@ public class MedicationController {
     @PostMapping("/medication")
     public ResponseEntity<Medication> createMedication(@RequestBody Medication medication) {
         try {
+        	
+            // If medication name or code is containg invalid characters
+        	if(medication.getMedicationName().equals(null) || medication.getCode().equals(null)) {
+       		 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+       	     }
+        	
             Medication _medication = medicationRepository.save(new Medication(medication.getMedicationName(), medication.getWeight(),
                     medication.getCode(), medication.getImage()));
             return new ResponseEntity<>(_medication, HttpStatus.CREATED);

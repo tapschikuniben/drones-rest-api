@@ -16,6 +16,9 @@ public class LoadDrone {
     @Column(name = "medication_code")
     private String medicationCode;
 
+    @Column(name = "medication_weight")
+    private double medicationWeight;
+    
     @Column(name = "source")
     private String source;
 
@@ -27,9 +30,10 @@ public class LoadDrone {
     }
 
     // initialize the variables
-    public LoadDrone(String droneSerialNumber, String medicationCode, String source, String destination) {
+    public LoadDrone(String droneSerialNumber, String medicationCode, double medicationWeight,String source, String destination) {
         this.droneSerialNumber = droneSerialNumber;
         this.medicationCode = medicationCode;
+        this.medicationWeight = medicationWeight;
         this.source = source;
         this.destination = destination;
     }
@@ -58,6 +62,15 @@ public class LoadDrone {
         this.medicationCode = medicationCode;
     }
     
+    //Medication Weight
+    public double getMedicationWeight() {
+        return medicationWeight;
+    }
+
+    public void setMedicationWeight(double medicationWeight) {
+        this.medicationWeight = medicationWeight;
+    }
+    
     
     //Source
     public String getSource() {
@@ -82,7 +95,7 @@ public class LoadDrone {
 
     @Override
     public String toString() {
-        return "LoadDrone [id=" + id + ", drone_serial_number=" + droneSerialNumber + ", medication_code=" + medicationCode + ", source="
+        return "LoadDrone [id=" + id + ", drone_serial_number=" + droneSerialNumber + ", medication_code=" + medicationCode + " , medication_weight=" + medicationWeight + ", source="
                 + source + ", destination=" + destination + "]";
     }
 }

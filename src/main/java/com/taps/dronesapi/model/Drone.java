@@ -2,6 +2,7 @@ package com.taps.dronesapi.model;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "drones")
 public class Drone {
@@ -53,6 +54,10 @@ public class Drone {
     }
 
     public void setSerialNumber(String serialNumber) {
+    	if(serialNumber.length() > 100) {
+    		System.out.println("Serial Number can not be more than 100 characters");
+    		return;
+    	}
         this.serialNumber = serialNumber;
     }
 

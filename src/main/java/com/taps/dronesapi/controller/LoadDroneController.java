@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.taps.dronesapi.model.Drone;
 import com.taps.dronesapi.model.LoadDrone;
 import com.taps.dronesapi.repository.DroneRepository;
 import com.taps.dronesapi.repository.LoadDroneRepository;
@@ -59,16 +59,38 @@ public class LoadDroneController {
     @PostMapping("/load_drone")
     public ResponseEntity<LoadDrone> createLoadDrone(@RequestBody LoadDrone loadDrone) {
         try {
-            LoadDrone _loadDrone = loadDroneRepository.save(new LoadDrone(loadDrone.getDroneSerialNumber(), loadDrone.getMedicationCode(),
-                    loadDrone.getSource(), loadDrone.getDestination()));
-            
-            // Update drone status to loaded
-        	droneRepository.setUpdateState("LOADED", loadDrone.getDroneSerialNumber());
+        	List<Drone> drones = droneRepository.findBySerialNumberQuery(loadDrone.getDroneSerialNumber());
         	
-            //Update drone current load id
-        	droneRepository.setCurrentLoadID(_loadDrone.getId(), loadDrone.getDroneSerialNumber());
-            
-            return new ResponseEntity<>(_loadDrone, HttpStatus.CREATED);
+        	Drone _drone = drones.get(0);
+        	
+        	if(loadDrone.getMedicationWeight() > _drone.getWeightLimit()) {
+        		 System.out.println("Items are over the weight limit");
+        		 return new ResponseEntity<LoadDrone>(HttpStatus.FORBIDDEN);
+        	}
+        	
+        	if(_drone.getBatteryCapacity() < 25) {
+       		 System.out.println("Battery level is low");
+       		 return new ResponseEntity<LoadDrone>(HttpStatus.FORBIDDEN);
+        	}
+        	
+      
+        	if(_drone.getState().equals("IDLE")) {
+        		 LoadDrone _loadDrone = loadDroneRepository.save(new LoadDrone(loadDrone.getDroneSerialNumber(), loadDrone.getMedicationCode(), loadDrone.getMedicationWeight(),
+                         loadDrone.getSource(), loadDrone.getDestination()));
+                 
+                 // Update drone status to loaded
+             	droneRepository.setUpdateState("LOADED", loadDrone.getDroneSerialNumber());
+             	
+                 //Update drone current load id
+             	droneRepository.setCurrentLoadID(_loadDrone.getId(), loadDrone.getDroneSerialNumber());
+                 
+                 return new ResponseEntity<>(_loadDrone, HttpStatus.CREATED);
+        	} else {
+        		System.out.println("Drone is not available");
+          		 return new ResponseEntity<LoadDrone>(HttpStatus.FORBIDDEN);
+        	}
+        	
+           
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -93,6 +115,7 @@ public class LoadDroneController {
                 LoadDrone _loadDrone = loadDroneData.get();
                 _loadDrone.setDroneSerialNumber(loadDrone.getDroneSerialNumber());
                 _loadDrone.setMedicationCode(loadDrone.getMedicationCode());
+                _loadDrone.setMedicationWeight(loadDrone.getMedicationWeight());
                 _loadDrone.setSource(loadDrone.getSource());
                 _loadDrone.setDestination(loadDrone.getDestination());
                 return new ResponseEntity<>(loadDroneRepository.save(_loadDrone), HttpStatus.OK);

@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taps.dronesapi.model.Drone;
+import com.taps.dronesapi.model.LoadDrone;
 
 public interface DroneRepository extends JpaRepository<Drone, Long> {
 
@@ -29,5 +30,8 @@ public interface DroneRepository extends JpaRepository<Drone, Long> {
     @Modifying
     @Query(value = "update Drone d set d.currentLoadID = :current_load_id where d.serialNumber= :serial_number")
 	void setCurrentLoadID (@Param("current_load_id") long currentLoadID, @Param("serial_number") String serial_number);
+    
+    @Query("SELECT d FROM Drone d WHERE d.serialNumber= :serial_number")
+	List<Drone> findBySerialNumberQuery(@Param("serial_number") String serial_number);
     
 }

@@ -23,6 +23,7 @@ import com.taps.dronesapi.model.LoadDrone;
 import com.taps.dronesapi.repository.DroneRepository;
 import com.taps.dronesapi.repository.LoadDroneRepository;
 
+
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api")
@@ -68,6 +69,11 @@ public class DroneController {
     @PostMapping("/drones")
     public ResponseEntity<Drone> createDrone(@RequestBody Drone drone) {
         try {
+        	
+        	if(drone.getSerialNumber().equals(null)) {
+        		 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        	}
+        	
             Drone _drone = droneRepository.save(new Drone(drone.getSerialNumber(), drone.getModel(),
                    drone.getWeightLimit(), drone.getBatteryCapacity(), drone.getState(), drone.getCurrentLoadID()));
             
@@ -164,12 +170,11 @@ public class DroneController {
               
               Drone _drone = drones.get(0);
               
-              System.out.print("xxxxxxxxxxxxxx" + _drone.getBatteryCapacity());
-              
               return new ResponseEntity<>(_drone.getBatteryCapacity(), HttpStatus.OK);
           } catch (Exception e) {
               return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
           }
     }
+
     
 }

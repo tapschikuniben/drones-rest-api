@@ -1,10 +1,16 @@
 package com.taps.dronesapi.model;
 
 import javax.persistence.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 @Table(name = "medication")
 public class Medication {
+	
+    //pattern to allowe only letters, numbers, ‘-‘, ‘_’
+	String medication_name_pattern = "([a-zA-Z_0-9 -]+)";
+	String medication_code_pattern = "([A-Z_0-9 ]+)";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -45,7 +51,12 @@ public class Medication {
     }
 
     public void setMedicationName(String medicationName) {
-        this.medicationName = medicationName;
+    	 if (medicationName.matches(medication_name_pattern)) {
+    		 this.medicationName = medicationName;
+    	 } else {
+    		 System.out.println("allowed only letters, numbers, ‘-‘, ‘_’ on medication name");
+    	 }
+        
     }
 
     // Weight
@@ -63,7 +74,12 @@ public class Medication {
     }
 
     public void setCode(String code) {
-        this.code = code;
+    	 if (code.matches(medication_code_pattern)) {
+    		 this.code = code;
+    	 }else {
+    		 System.out.println("allowed only upper case letters, underscore and numbers on medication code");
+    	 }
+       
     }
 
     // image
