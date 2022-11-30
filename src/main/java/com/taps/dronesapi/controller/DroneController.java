@@ -101,6 +101,20 @@ public class DroneController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    @PutMapping("/drones/status/{serialNumber}")
+    public ResponseEntity<Drone> updateDroneStatus(@PathVariable String serialNumber, @RequestBody Drone drone) {
+    	List<Drone> droneData = droneRepository.findBySerialNumber(serialNumber);
+
+        if (droneData.isEmpty()) {
+        	 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+            
+        Drone _drone = droneData.get(0);
+        _drone.setState(drone.getState());
+        return new ResponseEntity<>(droneRepository.save(_drone), HttpStatus.OK);
+      
+    }
 
     @DeleteMapping("/drones/{id}")
     public ResponseEntity<HttpStatus> deleteDrone(@PathVariable("id") long id) {

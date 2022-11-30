@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "78076ae8-9436-4dfc-8e38-c93ea1108eb1",
+		"name": "drones-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "drones",
+			"item": [
+				{
+					"name": "add drone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"serialNumber\": \"D0010\",\r\n    \"model\": \"Lightweight\",\r\n    \"weightLimit\": 500.00,\r\n    \"batteryCapacity\": 90,\r\n    \"state\": \"IDLE\",\r\n    \"currentLoadID\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/drones",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update drone",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"serialNumber\": \"s3\",\r\n    \"model\": \"Light Weight\",\r\n    \"weightLimit\": 500.00,\r\n    \"batteryCapacity\": 40,\r\n    \"state\": \"IDLE\",\r\n    \"currentLoadID\": 37\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/drones/123",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all drones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get drone by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones/143",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"143"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get drone by Serial Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones/serial/s6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"serial",
+								"s6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete drone",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones/143",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"143"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get drone loaded items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones/loaded-items/s700",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"loaded-items",
+								"s700"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get drone battery level",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones/get-battery-level/s700",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"get-battery-level",
+								"s700"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change drone status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"state\": \"LOADING\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/drones/status/D001",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"status",
+								"D001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all available drones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/drones/available",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drones",
+								"available"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "medication",
+			"item": [
+				{
+					"name": "add medication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"medicationName\": \"This is my name - _ edfyg 456\",\r\n    \"weight\": 300,\r\n    \"code\": \"AB_45645H6486\",\r\n    \"image\": \"ewfdhjnmewdhjn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/medication",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update medication",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"medicationName\": \"Paracetamo444l\",\r\n    \"weight\": 300,\r\n    \"code\": \"gf-456456486\",\r\n    \"image\": \"ewfdhjnmewdhjn\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/medication/14",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medication",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all medication",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/medication",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medication"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get medication by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/medication/14",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medication",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/medication/14",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"medication",
+								"14"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "load",
+			"item": [
+				{
+					"name": "add load",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"droneSerialNumber\": \"s5\",\r\n    \"medicationCode\": \"med-1238550\",\r\n    \"medicationWeight\": 300.0,\r\n    \"source\": \"harare\",\r\n    \"destination\": \"bulawayo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/load_drone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"load_drone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update load",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"droneSerialNumber\": \"xd-1234689\",\r\n    \"medicationCode\": \"456321YLER\",\r\n    \"source\": \"harare\",\r\n    \"destination\": \"bulawayodd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/load_drone/27",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"load_drone",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all loads",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/load_drone",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"load_drone"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete load",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/load_drone/28",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"load_drone",
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get load by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/load_drone/28",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"load_drone",
+								"28"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
